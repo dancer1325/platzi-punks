@@ -1,5 +1,7 @@
 const deploy = async () => {
-  const [deployer] = await ethers.getSigners();
+    // Once you execute `npx hardhat run ...`, having added '@nomiclabs/hardhat-ethers'
+    // --> Information has been added to execution context, such as ethers object is available for the global context
+  const [deployer] = await ethers.getSigners();         // getSigners() is a method added by '@nomiclabs/hardhat-ethers'
 
   console.log("Deploying contracts with the account:", deployer.address);
 

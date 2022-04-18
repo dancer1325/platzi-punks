@@ -2,6 +2,9 @@
 
 pragma solidity ^0.8.0;
 
+// Pasted the code
+// Alternative to paste the code:
+// 1) Import the dependency
 /// @title Base64
 /// @author Brecht Devos - <brecht@loopring.org>
 /// @notice Provides a function for encoding some bytes in base64

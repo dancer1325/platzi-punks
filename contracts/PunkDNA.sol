@@ -1,6 +1,9 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
+// Contract to create the DNA -->
+// 1) It doesn't require a constructor
+// 2) All the properties are extracted from https://getavataaars.com/
 contract PunkDNA {
     string[] private _accessoriesType = [
         "Blank",
@@ -200,61 +203,71 @@ contract PunkDNA {
         "ShortHairTheCaesarSidePart"
     ];
 
-    // This pseudo random function is deterministic and should not be used in production
+    // This pseudo random function is deterministic --> should not be used in production
+    // It's an alternative to generate really random via some 3º party such as ChainLink
+    // _tokenId     sequential number
+    // _minter      address which generates the token
     function deterministicPseudoRandomDNA(uint256 _tokenId, address _minter)
         public
-        pure
+        pure                // Modifier which doesn't read nor write parameters
         returns (uint256)
     {
+        // Address === Hex composition derived from private key --> Easy to convert to number
         uint256 combinedParams = _tokenId + uint160(_minter);
         bytes memory encodedParams = abi.encodePacked(combinedParams);
-        bytes32 hashedParams = keccak256(encodedParams);
+        bytes32 hashedParams = keccak256(encodedParams);        // keccak256()      Function to compute the hash of a structured data
 
         return uint256(hashedParams);
     }
 
     // Get attributes
+    // Each attribute's section is made of 2 digits
     uint8 constant ADN_SECTION_SIZE = 2;
 
+    // _dna                 It's the complete chain
+    // returns a DNA section === property, which are 2 digits
+    // _rightDiscard        Attribute about the right part to the end discarded, to get the property
     function _getDNASection(uint256 _dna, uint8 _rightDiscard)
-        internal
+        internal            // Modifier which indicates that just this contract is going to use this function
         pure
         returns (uint8)
     {
         return
-            uint8(
-                (_dna % (1 * 10**(_rightDiscard + ADN_SECTION_SIZE))) /
+            uint8(                  // Force the parsing to return the desired type
+                (_dna % (1 * 10**(_rightDiscard + ADN_SECTION_SIZE))) /         // **       It's a power
                     (1 * 10**_rightDiscard)
             );
     }
+
+    // Functions to return each property
 
     function getAccessoriesType(uint256 _dna)
         public
         view
         returns (string memory)
     {
-        uint256 dnaSection = _getDNASection(_dna, 0);
-        return _accessoriesType[dnaSection % _accessoriesType.length];
+        uint256 dnaSection = _getDNASection(_dna, 0);           // accessoriesTypes represent the first 2 digits of DNA
+        return _accessoriesType[dnaSection % _accessoriesType.length];      // Set a range between property's length --> Get the rest of dividing by property's length
     }
 
     function getClotheColor(uint256 _dna) public view returns (string memory) {
-        uint256 dnaSection = _getDNASection(_dna, 2);
-        return _clotheColor[dnaSection % _clotheColor.length];
+        uint256 dnaSection = _getDNASection(_dna, 2);           // clotheColor represent the [2,4] digits of DNA
+        return _clotheColor[dnaSection % _clotheColor.length];  // Set a range between property's length --> Get the rest of dividing by property's length
     }
 
     function getClotheType(uint256 _dna) public view returns (string memory) {
-        uint256 dnaSection = _getDNASection(_dna, 4);
-        return _clotheType[dnaSection % _clotheType.length];
+        uint256 dnaSection = _getDNASection(_dna, 4);           // clotheType represent the [4, 6] digits of DNA
+        return _clotheType[dnaSection % _clotheType.length];    // Set a range between property's length --> Get the rest of dividing by property's length
     }
 
     function getEyeType(uint256 _dna) public view returns (string memory) {
-        uint256 dnaSection = _getDNASection(_dna, 6);
-        return _eyeType[dnaSection % _eyeType.length];
+        uint256 dnaSection = _getDNASection(_dna, 6);           // eyeType represent the [6, 8] digits of DNA
+        return _eyeType[dnaSection % _eyeType.length];          // Set a range between property's length --> Get the rest of dividing by property's length
     }
 
     function getEyeBrowType(uint256 _dna) public view returns (string memory) {
-        uint256 dnaSection = _getDNASection(_dna, 8);
-        return _eyebrowType[dnaSection % _eyebrowType.length];
+        uint256 dnaSection = _getDNASection(_dna, 8);           // eyebrowType represent the [8, 10] digits of DNA
+        return _eyebrowType[dnaSection % _eyebrowType.length];  // Set a range between property's length --> Get the rest of dividing by property's length
     }
 
     function getFacialHairColor(uint256 _dna)
@@ -262,8 +275,8 @@ contract PunkDNA {
         view
         returns (string memory)
     {
-        uint256 dnaSection = _getDNASection(_dna, 10);
-        return _facialHairColor[dnaSection % _facialHairColor.length];
+        uint256 dnaSection = _getDNASection(_dna, 10);          // facialHairColor represent the [10, 12] digits of DNA
+        return _facialHairColor[dnaSection % _facialHairColor.length];  // Set a range between property's length --> Get the rest of dividing by property's length
     }
 
     function getFacialHairType(uint256 _dna)
@@ -271,37 +284,37 @@ contract PunkDNA {
         view
         returns (string memory)
     {
-        uint256 dnaSection = _getDNASection(_dna, 12);
-        return _facialHairType[dnaSection % _facialHairType.length];
+        uint256 dnaSection = _getDNASection(_dna, 12);          // facialHairType represent the [12, 14] digits of DNA
+        return _facialHairType[dnaSection % _facialHairType.length];    // Set a range between property's length --> Get the rest of dividing by property's length
     }
 
     function getHairColor(uint256 _dna) public view returns (string memory) {
-        uint256 dnaSection = _getDNASection(_dna, 14);
-        return _hairColor[dnaSection % _hairColor.length];
+        uint256 dnaSection = _getDNASection(_dna, 14);          // hairColor represent the [14, 16] digits of DNA
+        return _hairColor[dnaSection % _hairColor.length];      // Set a range between property's length --> Get the rest of dividing by property's length
     }
 
     function getHatColor(uint256 _dna) public view returns (string memory) {
-        uint256 dnaSection = _getDNASection(_dna, 16);
-        return _hatColor[dnaSection % _hatColor.length];
+        uint256 dnaSection = _getDNASection(_dna, 16);          // hatColor represent the [16, 18] digits of DNA
+        return _hatColor[dnaSection % _hatColor.length];        // Set a range between property's length --> Get the rest of dividing by property's length
     }
 
     function getGraphicType(uint256 _dna) public view returns (string memory) {
-        uint256 dnaSection = _getDNASection(_dna, 18);
-        return _graphicType[dnaSection % _graphicType.length];
+        uint256 dnaSection = _getDNASection(_dna, 18);          // graphicType represent the [18, 20] digits of DNA
+        return _graphicType[dnaSection % _graphicType.length];  // Set a range between property's length --> Get the rest of dividing by property's length
     }
 
     function getMouthType(uint256 _dna) public view returns (string memory) {
-        uint256 dnaSection = _getDNASection(_dna, 20);
-        return _mouthType[dnaSection % _mouthType.length];
+        uint256 dnaSection = _getDNASection(_dna, 20);          // mouthType represent the [20, 22] digits of DNA
+        return _mouthType[dnaSection % _mouthType.length];      // Set a range between property's length --> Get the rest of dividing by property's length
     }
 
     function getSkinColor(uint256 _dna) public view returns (string memory) {
-        uint256 dnaSection = _getDNASection(_dna, 22);
-        return _skinColor[dnaSection % _skinColor.length];
+        uint256 dnaSection = _getDNASection(_dna, 22);          // skinColor represent the [22, 24] digits of DNA
+        return _skinColor[dnaSection % _skinColor.length];      // Set a range between property's length --> Get the rest of dividing by property's length
     }
 
     function getTopType(uint256 _dna) public view returns (string memory) {
-        uint256 dnaSection = _getDNASection(_dna, 24);
-        return _topType[dnaSection % _topType.length];
+        uint256 dnaSection = _getDNASection(_dna, 24);          // topType represent the [24, 26] digits of DNA
+        return _topType[dnaSection % _topType.length];          // Set a range between property's length --> Get the rest of dividing by property's length
     }
 }

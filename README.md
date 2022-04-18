@@ -7,6 +7,7 @@ Try running some of the following tasks:
 * `npx hardhat accounts`
 * `npx hardhat compile`
   * Compile solidity code, generating a target based on the 'hardhat.config.js'
+  * Command to check that all is working fine
 * `npx hardhat clean`
 * `npx hardhat test`
   * Run test
@@ -27,8 +28,10 @@ Try running some of the following tasks:
     * 'test'
 
 # How to run?
+* `npx hardhat run scripts/deploy.js`
+  * Run a script in hardhat environment, not in a net
 * `npx hardhat run scripts/deploy.js --network rinkeby`
-  * Run a script which deploy the smart contract
+  * Run a script which deploys the smart contract in the net indicated
   * Previous to make the transaction you need ether
     * In testnet
       * https://www.rinkeby.io/#faucet
@@ -55,3 +58,11 @@ Try running some of the following tasks:
   * Manage environment variables, which aren't commited
   * '.env.example'
     * Template file to be shared by your team, but WITHOUT the real keys
+* '@openzeppelin/contracts'
+  * Library to secure the smart contract development
+* 'Base64.sol'
+  * Library created by a particular, to handle all about encoding in Base64 in solidity.
+    * It's not included nor in Openzeppelin
+    * How to use it?
+      1) Create the file and paste the code
+      2) Import the dependency
