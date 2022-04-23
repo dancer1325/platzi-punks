@@ -2,8 +2,7 @@ d# Basic Sample Hardhat Project
 
 This project demonstrates a basic Hardhat use case. It comes with a sample contract, a test for that contract, a sample script that deploys that contract, and an example of a task implementation, which simply lists the available accounts.
 
-Try running some of the following tasks:
-
+Try running some following tasks:
 * `npx hardhat accounts`
 * `npx hardhat compile`
   * Compile solidity code, generating a target based on the 'hardhat.config.js'
@@ -11,6 +10,8 @@ Try running some of the following tasks:
 * `npx hardhat clean`
 * `npx hardhat test`
   * Run test
+    * TODO: How to configure for launching test via IDE's editor configuration?
+  * :warning: If you want to debug, you must execute the script 'test' from package.json 
 * `npx hardhat node`
   * Open a console to interact with the smart contracts
 * `node scripts/sample-script.js`
@@ -66,3 +67,6 @@ Try running some of the following tasks:
     * How to use it?
       1) Create the file and paste the code
       2) Import the dependency
+* 'chai'
+  * DD / TDD assertion library for node and the browser
+    * It can be delightfully paired with any javascript testing framework.

@@ -5,7 +5,7 @@ const deploy = async () => {
 
   console.log("Deploying contracts with the account:", deployer.address);
 
-  const PlatziPunks = await ethers.getContractFactory("PlatziPunks");
+  const PlatziPunks = await ethers.getContractFactory("PlatziPunks");   // getContractFactory() is a method added by '@nomiclabs/hardhat-ethers'
   const deployed = await PlatziPunks.deploy(10000);
 
   console.log("Platzi Punks address:", deployed.address);

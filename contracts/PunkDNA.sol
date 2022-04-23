@@ -214,7 +214,7 @@ contract PunkDNA {
     {
         // Address === Hex composition derived from private key --> Easy to convert to number
         uint256 combinedParams = _tokenId + uint160(_minter);
-        bytes memory encodedParams = abi.encodePacked(combinedParams);
+        bytes memory encodedParams = abi.encodePacked(combinedParams);              // abi.encodePacked()       Solidity's function
         bytes32 hashedParams = keccak256(encodedParams);        // keccak256()      Function to compute the hash of a structured data
 
         return uint256(hashedParams);
