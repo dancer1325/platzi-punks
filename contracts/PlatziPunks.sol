@@ -13,7 +13,7 @@ import "./PunkDNA.sol";
 // ERC721               Core one
 // ERC721Enumerable     Another interface based on ERC721, to extend functionality
 // PunkDNA
-// TODO: Fix problem running tests, after adding it
+// TODO: Use PaymentSplitter
 //contract PlatziPunks is ERC721, ERC721Enumerable, PunkDNA, PaymentSplitter {
 contract PlatziPunks is ERC721, ERC721Enumerable, PunkDNA{
     using Counters for Counters.Counter;
@@ -25,7 +25,7 @@ contract PlatziPunks is ERC721, ERC721Enumerable, PunkDNA{
 
     // Required to execute the inherited constructor
     // ERC721("NameOfTheToken", "SymbolOfTheToken")
-    // TODO: Fix problem running tests, after adding it
+    // TODO: Use PaymentSplitter
 //    constructor(address[] memory _payees, uint256[] memory  _shares, uint256 _maxSupply) ERC721("PlatziPunks", "PLPKS") PaymentSplitter(_payees, _shares) payable {
     constructor(uint256 _maxSupply) ERC721("PlatziPunks", "PLPKS") {
         maxSupply = _maxSupply;

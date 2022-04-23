@@ -6,7 +6,7 @@ const deploy = async () => {
   console.log("Deploying contracts with the account:", deployer.address);
 
   const PlatziPunks = await ethers.getContractFactory("PlatziPunks");   // getContractFactory() is a method added by '@nomiclabs/hardhat-ethers'
-  const deployed = await PlatziPunks.deploy(10000);
+  const deployed = await PlatziPunks.deploy(10000);         // .deploy()        You can pass the same arguments as the contract's constructor https://docs.ethers.io/v5/api/contract/contract-factory/#ContractFactory-deploy
 
   console.log("Platzi Punks address:", deployed.address);
 };

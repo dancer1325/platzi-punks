@@ -13,13 +13,20 @@ describe("Platzi Punks Contract", () => {
   };
 
   describe("Deployment", () => {
-    it("Sets max supply to passed param", async () => {
+    it("Check constructor functionality", async () => {
       const maxSupply = 10000;
 
       const { deployed } = await setup({ maxSupply });
+      console.log(deployed);
 
-      const returnedMaxSupply = await deployed.maxSupply();
+      const returnedMaxSupply = await deployed.maxSupply();       // Getter function is created automatically for each contract's attribute
       expect(maxSupply).to.equal(returnedMaxSupply);
+
+      const name = await deployed.name();
+      expect(name).to.equal("PlatziPunks");
+
+      const symbol = await deployed.symbol();
+      expect(symbol).to.equal("PLPKS");
     });
   });
 
