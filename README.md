@@ -70,3 +70,8 @@ Try running some following tasks:
 * 'chai'
   * DD / TDD assertion library for node and the browser
     * It can be delightfully paired with any javascript testing framework.
+* 'hardhat-exposed'
+  * Hardhat plugin to automatically expose internal functions for smart contract testing
+  * After installing it, you would need to run 'hardhat compile --force'
+  * Alternatives to use this package to test internal functions
+    * https://medium.com/@danielque/solidity-unit-testing-internal-functions-4e9a728298a0

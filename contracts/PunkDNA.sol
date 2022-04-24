@@ -1,6 +1,8 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
+import "hardhat/console.sol";
+
 // Contract to create the DNA -->
 // 1) It doesn't require a constructor
 // 2) All the properties are extracted from https://getavataaars.com/

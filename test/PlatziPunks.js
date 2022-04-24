@@ -9,6 +9,7 @@ describe("Platzi Punks Contract", () => {
     return {
       owner,
       deployed,
+      PlatziPunks
     };
   };
 
@@ -31,12 +32,16 @@ describe("Platzi Punks Contract", () => {
   });
 
   describe("Minting", () => {
-    it("Mints a new token and assigns to owner", async () => {
+
+    it("Mints a new token and assigns to owner, increasing the _idCounter", async () => {
       const { owner, deployed } = await setup();
 
       await deployed.mint();
-      const ownerOfMinted = await deployed.ownerOf(0);
-      expect(ownerOfMinted).to.equal(owner.address);
+      const ownerOfMinted = await deployed.ownerOf(0);      // .ownerOf   IERC721's function
+      expect(ownerOfMinted).to.equal(owner.address);        // Checking _safeMint functionality from OpenZeppelin
+
+      const counters = await deployed._idCounter();
+      expect(counters).to.equal(1);
     });
 
     it("Has a minting limit", async () => {
@@ -46,15 +51,37 @@ describe("Platzi Punks Contract", () => {
         maxSupply,
       });
 
-      // Mint all
-      await Promise.all(new Array(2).fill().map(() => deployed.mint()));
+      // Options to throw several promises
+
+      // 1) Manually
+      // await deployed.mint();
+      // await deployed.mint();
+      // await expect(deployed.mint()).to.be.revertedWith("There are no PlatziPunks left :(")
+
+      // 2) Promise.all()    Iterable of promises to return a single one
+       await Promise.all(new Array(2).fill().map(() => deployed.mint()));
 
       // Test last minting
+      // revertedWith()   chai matcher applied via waffle, with hardhat's plugin.
+      // Check if the transaction was reverted with certain message
       await expect(deployed.mint()).to.be.revertedWith(
         "There are no PlatziPunks left :("
       );
     });
   });
+
+  describe("paramsURI", () => {
+    // Test based on the determiniscPsuedo random property
+    // First dna generated is always 98500076866102862438511243873201350507055493981987690719374768781574322810666
+    it('should return URI params based on dna', async() => {
+      const {PlatziPunks, deployed} = await setup();
+      let dna = "98500076866102862438511243873201350507055493981987690719374768781574322810666";    // Important!!: Just valid sending as string, not as int
+      // let dna = web3.utils.toBN(String(98500076866102862438511243873201350507055493981987690719374768781574322810666));
+      const params = await deployed._paramsURI(dna);
+      expect(params).
+      equal("accessoriesType=Prescription02&clotheColor=Heather&clotheType=BlazerShirt&eyeType=Wink&eyebrowType=SadConcerned&facialHairColor=Black&facialHairType=BeardMagestic&hairColor=Platinum&hatColor=Blue01&graphicType=Bear&mouthType=Tongue&skinColor=Yellow&topType=LongHairMiaWallace");
+    });
+  })
 
   describe("tokenURI", () => {
     it("returns valid metadata", async () => {

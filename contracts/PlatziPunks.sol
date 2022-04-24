@@ -6,7 +6,8 @@ import "@openzeppelin/contracts/utils/Counters.sol";            // Utility to ma
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
 import "@openzeppelin/contracts/finance/PaymentSplitter.sol";
 import "@openzeppelin/contracts/utils/Strings.sol";
-import "./Base64.sol";
+import "hardhat/console.sol";
+import "../lib/Base64.sol";
 import "./PunkDNA.sol";
 
 // is                   Reserved keyword in Solidity to handle the inheritance
@@ -19,7 +20,8 @@ contract PlatziPunks is ERC721, ERC721Enumerable, PunkDNA{
     using Counters for Counters.Counter;
     using Strings for uint256;
 
-    Counters.Counter private _idCounter;            // Openzeppelin's type
+//    Counters.Counter private _idCounter;         // Openzeppelin's type
+    Counters.Counter public _idCounter;            // Indicated as public, to get access to
     uint256 public maxSupply;                       // NFT's supply is unlimited, but you can restrict it, to give exclusivity
     mapping(uint256 => uint256) public tokenDNA;    // tokenId --> tokenDNA
 
@@ -38,6 +40,7 @@ contract PlatziPunks is ERC721, ERC721Enumerable, PunkDNA{
 
         // msg.sender           Address which executes the function
         tokenDNA[current] = deterministicPseudoRandomDNA(current, msg.sender);  // Assign a new token based on deterministicPseudoRandomDNA
+        console.log(tokenDNA[current]);         // TODO: Comment in production!!
         _idCounter.increment();
         _safeMint(msg.sender, current);         // Private Open Zeppelin method, to create a token. Emits a Transfer event
     }
@@ -49,7 +52,8 @@ contract PlatziPunks is ERC721, ERC721Enumerable, PunkDNA{
     }
 
     // It's NOT override function. It's a custom one
-    function _paramsURI(uint256 _dna) internal view returns (string memory) {
+//    function _paramsURI(uint256 _dna) internal view returns (string memory) {
+    function _paramsURI(uint256 _dna) public view returns (string memory) {
         string memory params;
 
         // Important!! Based on the solidity compiler version, you can get Too Deep Stack error

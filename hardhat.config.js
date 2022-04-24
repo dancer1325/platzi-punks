@@ -1,4 +1,5 @@
-require("@nomiclabs/hardhat-waffle");
+require("@nomiclabs/hardhat-waffle");   // If you don't add it here --> Not used in the compilation
+require('hardhat-exposed');
 require("dotenv").config();     // By default it looks for the file '.env'
 
 module.exports = {
