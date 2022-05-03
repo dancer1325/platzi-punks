@@ -32,7 +32,4 @@ describe("PunkDNA", function () {
         expect(await punk_dna.deterministicPseudoRandomDNA(1, signer.address).toString().length).to.equal(16);
     })
 
-    xit('', async() => {
-
-    })
 });

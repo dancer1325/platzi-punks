@@ -34,6 +34,7 @@ contract PlatziPunks is ERC721, ERC721Enumerable, PunkDNA{
     }
 
     // Create the token
+    // There is no any specification into ERC721 about minting
     function mint() public {
         uint256 current = _idCounter.current();         // .current()       Function to return the current counter's value
         require(current < maxSupply, "There are no PlatziPunks left :(");       // Validation in order to restrict the number of NFT to create
@@ -42,7 +43,7 @@ contract PlatziPunks is ERC721, ERC721Enumerable, PunkDNA{
         tokenDNA[current] = deterministicPseudoRandomDNA(current, msg.sender);  // Assign a new token based on deterministicPseudoRandomDNA
         console.log(tokenDNA[current]);         // TODO: Comment in production!!
         _idCounter.increment();
-        _safeMint(msg.sender, current);         // Private Open Zeppelin method, to create a token. Emits a Transfer event
+        _safeMint(msg.sender, current);         // Private Open Zeppelin method, to create a token. Emits a Transfer event. Private Open Zeppelin functions aren't part of the standard
     }
 
     // Override an Open Zeppelin's function
@@ -124,7 +125,7 @@ contract PlatziPunks is ERC721, ERC721Enumerable, PunkDNA{
                 string(
                     abi.encodePacked(
                         '{"name": "PlatziPunk #',
-                        tokenId.toString(),
+                        tokenId.toString(),                 // Required to convert correctly the tokenId
                         '", "description": "Platzi Punks are randomized Avataaars stored on chain to teach DApp development on Platzi", "image": "',
                         image,
                         '"}'

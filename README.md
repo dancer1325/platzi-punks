@@ -16,6 +16,10 @@ Try running some following tasks:
   * Open a console to interact with the smart contracts
 * `node scripts/sample-script.js`
 * `npx hardhat help`
+* `npx hardhat flatten`
+  * Take all the contracts, and flatten in 1 file
+  * `npx hardhat flatten > Flattened.sol`
+    * Create 'Flattened.sol' file with all the contracts
 
 
 # How has the project been created?
