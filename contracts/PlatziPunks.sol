@@ -18,7 +18,7 @@ import "./PunkDNA.sol";
 //contract PlatziPunks is ERC721, ERC721Enumerable, PunkDNA, PaymentSplitter {
 contract PlatziPunks is ERC721, ERC721Enumerable, PunkDNA{
     // using A for B It's a directive to attach functions (A) as member functions to any
-    // type (B)
+    // type (B) https://docs.soliditylang.org/en/v0.8.14/contracts.html?highlight=using#using-for
     using Counters for Counters.Counter;
     using Strings for uint256;
 
