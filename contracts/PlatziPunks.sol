@@ -17,6 +17,8 @@ import "./PunkDNA.sol";
 // TODO: Use PaymentSplitter
 //contract PlatziPunks is ERC721, ERC721Enumerable, PunkDNA, PaymentSplitter {
 contract PlatziPunks is ERC721, ERC721Enumerable, PunkDNA{
+    // using A for B It's a directive to attach functions (A) as member functions to any
+    // type (B)
     using Counters for Counters.Counter;
     using Strings for uint256;
 

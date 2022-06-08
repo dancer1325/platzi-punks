@@ -79,3 +79,10 @@ Try running some following tasks:
   * After installing it, you would need to run 'hardhat compile --force'
   * Alternatives to use this package to test internal functions
     * https://medium.com/@danielque/solidity-unit-testing-internal-functions-4e9a728298a0
+* 'artifacts'
+  * .json file with the compiled smart contract with information as
+    * net in which it's deployed
+    * abi
+  * Used in libraries such as
+    * hardhat
+    * truffle
